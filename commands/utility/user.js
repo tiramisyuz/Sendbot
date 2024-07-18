@@ -49,7 +49,7 @@ module.exports = {
                     .setColor(0xbd79ff)
                     .setTitle(`@${sendchatData.username} on Sendchat`)
                     .setURL(`https://sendchat.xyz/@${sendchatName}`)
-                    .setThumbnail(sendchatData.picture == '' ? "https://sendchat.xyz/blank.png" : sendchatData.picture)
+                    .setThumbnail(sendchatData.picture == '' ? "https://sendchat.xyz/blank.webp" : sendchatData.picture)
                     .addFields(
                         { name: 'ID', value: sendchatData._id, inline: true },
                         { name: 'Created at', value: new Date(sendchatData.createdAt).toLocaleString(), inline: true },
