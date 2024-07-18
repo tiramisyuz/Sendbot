@@ -1,5 +1,6 @@
 const { Events, ActivityType } = require('discord.js');
-const { startupMessage } = require('../config.json');
+const { startupMessage, logChannel } = require('../config.json');
+const { createErrorEmbed } = require('../util/errorEmbed');
 
 module.exports = {
     name: Events.ClientReady,
@@ -30,8 +31,13 @@ module.exports = {
                     }],
                     status: 'idle'
                 });
-            } catch (error) {
-                console.error('Error fetching user count:', error);
+            } catch (err) {
+                client.channels.fetch(logChannel)
+                    .then(channel => {
+                        const embed = createErrorEmbed(err.stack.toString().substring(0, 2000));
+                        channel.send({ embeds: [embed] });
+                    })
+                    .catch(console.error);
             }
         }
 

@@ -1,11 +1,13 @@
 const { Events } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
-const { gemini } = require('../config.json');
+const { gemini, logChannel } = require('../config.json');
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const genAI = new GoogleGenerativeAI(gemini);
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
 var chat = model.startChat({});
+
+const { createErrorEmbed, createVagueErrorEmbed } = require('../util/errorEmbed');
 
 // Load JSON file
 const responses = JSON.parse(fs.readFileSync('responses.json', 'utf8'));
@@ -69,14 +71,26 @@ module.exports = {
                 try {
                     result = await chat.sendMessage([prompt, ...imageParts]);
                 } catch (err) {
-                    message.reply(err.stack.toString());
+                    message.reply({ embeds: [createVagueErrorEmbed()] });
+                    message.client.channels.fetch(logChannel)
+                        .then(channel => {
+                            const embed = createErrorEmbed(err.stack.toString().substring(0, 2000));
+                            channel.send({ embeds: [embed] });
+                        })
+                        .catch(console.error);
                     return;
                 }
             } else {
                 try {
                     result = await chat.sendMessage(prompt);
                 } catch (err) {
-                    message.reply(err.stack.toString().substring(0, 2000));
+                    message.reply({ embeds: [createVagueErrorEmbed()] });
+                    message.client.channels.fetch(logChannel)
+                        .then(channel => {
+                            const embed = createErrorEmbed(err.stack.toString().substring(0, 2000));
+                            channel.send({ embeds: [embed] });
+                        })
+                        .catch(console.error);
                     return;
                 }
             }
@@ -88,7 +102,13 @@ module.exports = {
                 await message.reply({ content: text.substring(0, 2000), allowedMentions: { repliedUser: false } });
 
             } catch (err) {
-                await message.reply({ content: err.stack.toString().substring(0,2000), allowedMentions: { repliedUser: false } });
+                message.reply({ embeds: [createVagueErrorEmbed()] });
+                client.channels.fetch('1263586948614848633')
+                    .then(channel => {
+                        const embed = createErrorEmbed(err.stack.toString().substring(0, 2000));
+                        channel.send({ embeds: [embed] });
+                    })
+                    .catch(console.error);
             }
 
             return;
