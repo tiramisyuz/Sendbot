@@ -1,15 +1,3 @@
 # sendbot
 
-To install dependencies:
-
-```bash
-bun install
-```
-
-To run:
-
-```bash
-bun run index.js
-```
-
-This project was created using `bun init` in bun v1.1.20. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+so you know sendchat? you know robots? what if sendchat and robot was in orgy and they copulated and out comes sendbot
