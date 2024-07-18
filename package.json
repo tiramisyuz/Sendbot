@@ -15,6 +15,7 @@
     "axios": "^1.7.2",
     "child-process-async": "^1.0.1",
     "discord.js": "^14.15.3",
+    "dotenv": "^16.4.5",
     "eslint": "^9.7.0",
     "got": "^14.4.1",
     "node-fetch": "^3.3.2",

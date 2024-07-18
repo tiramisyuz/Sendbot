@@ -34,7 +34,7 @@ module.exports = {
             } catch (err) {
                 client.channels.fetch(logChannel)
                     .then(channel => {
-                        const embed = createErrorEmbed(err.stack.toString().substring(0, 2000));
+                        const embed = createErrorEmbed(err.stack);
                         channel.send({ embeds: [embed] });
                     })
                     .catch(console.error);

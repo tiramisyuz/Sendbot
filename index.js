@@ -1,7 +1,9 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, GatewayIntentBits } = require('discord.js');
-const { token } = require('./config.json');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 const tmpDir = path.join(__dirname, 'tmp');
 if (!fs.existsSync(tmpDir)) {
@@ -50,4 +52,4 @@ for (const file of eventFiles) {
     }
 }
 
-client.login(token);
+client.login(process.env.DISCORD_TOKEN);
