@@ -97,7 +97,7 @@ async function processPrompt(message) {
 
     } catch (err) {
         message.reply({ embeds: [createVagueErrorEmbed()] });
-        client.channels.fetch(logChannel)
+        message.client.channels.fetch(logChannel)
             .then(channel => {
                 const embed = createErrorEmbed(err.stack);
                 channel.send({ embeds: [embed] });
