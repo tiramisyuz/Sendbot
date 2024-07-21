@@ -51,6 +51,7 @@ module.exports = {
                     .setURL(`https://sendchat.xyz/@${sendchatName}`)
                     .setThumbnail(sendchatData.picture == '' ? "https://sendchat.xyz/blank.webp" : sendchatData.picture)
                     .addFields(
+                        { name: 'Display Name', value: (sendchatData.nickname != "" && !!sendchatData.nickname) ? sendchatData.nickname.substring(0, 100) : "None", inline: false },
                         { name: 'Bio', value: sendchatData.bio.substring(0, 512), inline: false },
                         { name: 'Created at', value: new Date(sendchatData.createdAt).toLocaleString(), inline: true },
                         { name: 'Updated at', value: new Date(sendchatData.updatedAt).toLocaleString(), inline: true }
