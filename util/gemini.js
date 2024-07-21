@@ -25,6 +25,7 @@ function fileToGenerativePart(path, mimeType) {
 
 async function processPrompt(message) {
     message.channel.sendTyping();
+    var oldChat = chat;
 
     if (message.content.toLowerCase().includes("whack")) {
         message.channel.send("Ugh....... my probe hurts.");
@@ -32,7 +33,7 @@ async function processPrompt(message) {
         return;
     }
 
-    var prompt = message.content;
+    var prompt = message.content.replace("<@1263298499240394764>", "");
 
     if (prompt === '' || !prompt) {
         prompt = '[no prompt provided]';
@@ -72,6 +73,7 @@ async function processPrompt(message) {
                     channel.send({ embeds: [embed] });
                 })
                 .catch(console.error);
+            chat = oldChat;
             return;
         }
     } else {
@@ -85,6 +87,7 @@ async function processPrompt(message) {
                     channel.send({ embeds: [embed] });
                 })
                 .catch(console.error);
+            chat = oldChat;
             return;
         }
     }
@@ -103,6 +106,7 @@ async function processPrompt(message) {
                 channel.send({ embeds: [embed] });
             })
             .catch(console.error);
+        chat = oldChat;
     }
 
     return;

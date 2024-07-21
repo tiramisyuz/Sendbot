@@ -46,12 +46,12 @@ module.exports = {
                 const sendchatData = await response.json();
 
                 const embed = new EmbedBuilder()
-                    .setColor(0xbd79ff)
+                    .setColor(0x191919)
                     .setTitle(`@${sendchatData.username} on Sendchat`)
                     .setURL(`https://sendchat.xyz/@${sendchatName}`)
                     .setThumbnail(sendchatData.picture == '' ? "https://sendchat.xyz/blank.webp" : sendchatData.picture)
                     .addFields(
-                        { name: 'ID', value: sendchatData._id, inline: true },
+                        { name: 'Bio', value: sendchatData.bio.substring(0, 512), inline: false },
                         { name: 'Created at', value: new Date(sendchatData.createdAt).toLocaleString(), inline: true },
                         { name: 'Updated at', value: new Date(sendchatData.updatedAt).toLocaleString(), inline: true }
                     )
